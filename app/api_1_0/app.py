@@ -1,9 +1,9 @@
 # -*- encoding:utf-8 -*-
-
 # !usr/bin/env python
-import os
+
 from datetime import datetime
 from flask import Flask, jsonify, abort, make_response, request, g, url_for
+
 from flask_sqlalchemy import SQLAlchemy as SQLAlchemy
 from flask_httpauth import HTTPBasicAuth
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
@@ -65,7 +65,6 @@ class User(db.Model):
         s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'id': self.id})
 
-
     @staticmethod
     def verify_auth_token(token):
         s = Serializer(app.config['SECRET_KEY'])
@@ -77,7 +76,6 @@ class User(db.Model):
             return None
         user = User.query.get(data['id'])
         return user
-
 
 # class Album(db.Model):
 #     __tablename__ = 'albums'
